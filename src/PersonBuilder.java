@@ -1,8 +1,8 @@
 public class PersonBuilder {
-    String name;
-    String surname;
-    int age;
-    String address;
+    private String name;
+    private String surname;
+    private int age = -1;
+    private String address;
 
 
     public PersonBuilder setName(String name) {
@@ -21,7 +21,8 @@ public class PersonBuilder {
 
     public PersonBuilder setAge(int age) {
         if (age < 0) {
-            System.out.println("Такой возраст не возможен");
+            throw new IllegalArgumentException("Такой возраст не возможен");
+            //System.out.println("Такой возраст не возможен");
         } else this.age = age;
         return this;
     }
@@ -33,8 +34,9 @@ public class PersonBuilder {
 
     public Person build() {
         Person person;
-        if (name == null || surname == null)
-            System.out.println("Имя или фамилия не заполнены");
+        if (name == null || surname == null) {
+            throw new IllegalStateException("Имя или фамилия не заполнены");
+        }
         if (age < 0) {
             person = new Person(name, surname);
         } else person = new Person(name, surname, age);
